@@ -22,7 +22,7 @@ url     : # the base hostname & protocol for your site e.g. https://www.someone.
 baseurl : # does not include hostname
 title   : 광자(Photon)'s Wiki
 description: > # this means to ignore newlines until "Language & timezone"
-  정말 미쳤을지도 모른다. 
+  정말 미쳤을지도 모른다.
 
 
 ## => Language and Timezone
@@ -106,11 +106,11 @@ sources: # bootcdn (default), unpkg
 ## => Comments
 ##############################
 comments:
-  provider: false # false (default), "disqus", "gitalk", "custom"
+  provider: disqus # false (default), "disqus", "gitalk", "custom"
 
   ## Disqus
   disqus:
-    shortname: # the Disqus shortname for the site
+    shortname: "gbkim1988-github-io"# the Disqus shortname for the site
 
   ## Gitalk
   # please refer to https://github.com/gitalk/gitalk for more info.
