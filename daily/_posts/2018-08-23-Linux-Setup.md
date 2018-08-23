@@ -12,9 +12,38 @@ Ubuntu 머신의 IP 를 갑작스럽게 변경해야할 때, 혹은 시스템의
 
 현재 운용 중인 서버의 IP 를 변경해야 하는 경우
 
-Ubuntu 18.04
+## Ubuntu 16.04
+
+아래의 파일을 변경한다.
+{% highlight bash %}
+vim /etc/network/interfaces
+{% endhighlight %}
+
+유동 아이피 설정
+```
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet dhcp
 ```
 
+```
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet static
+address xxx.xxx.xxx.xxx
+netmask xxx.xxx.xxx.xxx
+gateway xxx.xxx.xxx.xxx
+dns-nameservers xxx.xxx.xxx.xxx
+```
+
+파일 수정 후 네트워크 재시작
+```
+systemctl restart networking.service
+```
+
+위의 명령어 이후에도 IP가 변경되지 않는다면?
+```
+reboot
 ```
 
 ---
