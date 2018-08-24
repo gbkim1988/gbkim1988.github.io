@@ -71,13 +71,13 @@ void MediaProgressManager::tick(int milliseconds);
 void QProgressBar::setValue(int value);
 ```
 
-위의 가상 함수 및 실제 Widget 의 slot 에서 확인할 수 있듯이 동일한 종류의 파라미터를 가졍한다. 특히 타입이 중요하다. 만약 시그널(signal)을 슬롯(slot)과 연결하되 이들의 시그니처가 다르다면 런타임 동작 중에 연결이 완료되고 아래와 같은 경고를 보게 될 것이다.
+위의 가상 함수 및 실제 Widget 의 slot 에서 확인할 수 있듯이 동일한 종류의 파라미터를 가졍한다. 특히 타입이 중요하다. *만약 시그널(signal)을 슬롯(slot)과 연결하되 이들의 시그니처가 다르다면 런타임 동작 중에 연결이 완료되고 아래와 같은 경고를 보게 될 것이다.*
 
 ```
 QObject::connect: Incompatible sender/receiver arguments
 ```
 
-이는 시그널(signal)이 파라미터를 이용해 슬롯(slot)에 정보를 전달하기 때문이다. 시그널(signal)의 첫 번째 파라미터는 슬롯(slot)의 첫번째 파라미터에 전달되고 두 번째, 세 번째 등등도 각각 그러하다.
+이는 시그널(signal)이 파라미터를 이용해 슬롯(slot)에 정보를 전달하기 때문이다. *시그널(signal)의 첫 번째 파라미터는 슬롯(slot)의 첫번째 파라미터에 전달되고 두 번째, 세 번째 등등도 각각 그러하다.*
 
 시그널(signal) 과 슬롯(slot) 을 연결하는 코드는 아래와 같다.
 ```
@@ -87,7 +87,29 @@ QProgressBar *progress = new QProgressBar(window);
 QObject::connect(manager, SIGNAL(tick(int)), progress, SLOT(setValue(int)));
 ```
 
+위 코드에서 *SIGNAL 과 SLOT 매크로에 시그니처(signature)를 반드시 제공* 해야하는 것을 확인할 수 있다. 물론 변수의 이름까지 제공해줄 수 있다.
 
+# Features of signals and slots
+
+- 단일 시그널(signal)은 여러 슬롯(slot)에 연결 될 수 있다.
+- 역 또한 성립한다.
+- 시그널(signal)은 또다른 시그널(signal)에 연결할 수 있다. 이를 시그널(signal) 릴레이(relaying)라고 한다. 첫 번째 시그널이 전송되고 곧이어 두번재 시그널이 연이어 전송되는 식이다.
+
+# 예제(Example)
+
+## 이벤트 응답 (Responding to an event)
+
+버튼을 눌렀을 때 어플리케이션을 닫는 예제
+
+QPushButton 과 QApplication 의 시그널(signal) 과 슬롯(slot) 을 연결하라
+
+```
+QPushButton's clicked signal ----> QApplication's quit slot
+```
+
+QApplication 에 접근하는 방법
+QApplication 의 static function 에 접근한다. QApplication * QApplication::instance()
+{:.info}
 
 
 ---
