@@ -66,9 +66,27 @@ void MediaProgressManager::tick(int milliseconds);
 ```
 
 그리고 문서에서 알 수 있듯이 QProgressBar 는 아래의 slot 을 가진다.
+
 ```
 void QProgressBar::setValue(int value);
 ```
+
+위의 가상 함수 및 실제 Widget 의 slot 에서 확인할 수 있듯이 동일한 종류의 파라미터를 가졍한다. 특히 타입이 중요하다. 만약 시그널(signal)을 슬롯(slot)과 연결하되 이들의 시그니처가 다르다면 런타임 동작 중에 연결이 완료되고 아래와 같은 경고를 보게 될 것이다.
+
+```
+QObject::connect: Incompatible sender/receiver arguments
+```
+
+이는 시그널(signal)이 파라미터를 이용해 슬롯(slot)에 정보를 전달하기 때문이다. 시그널(signal)의 첫 번째 파라미터는 슬롯(slot)의 첫번째 파라미터에 전달되고 두 번째, 세 번째 등등도 각각 그러하다.
+
+시그널(signal) 과 슬롯(slot) 을 연결하는 코드는 아래와 같다.
+```
+MediaProgressManager *manager = new MediaProgressManager();
+QProgressBar *progress = new QProgressBar(window);
+
+QObject::connect(manager, SIGNAL(tick(int)), progress, SLOT(setValue(int)));
+```
+
 
 
 
