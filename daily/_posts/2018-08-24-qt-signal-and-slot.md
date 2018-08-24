@@ -199,6 +199,35 @@ meta-object 능력을 사용하기 위해 QObject 를 서브클래싱해야 한�
 const QMetaObject * QObject::metaObject () const
 ```
 
+QMetaObject 클래스는 meta-object 를 처리하는 모든 메서드들을 포함한다.
+{:.info}
+
+## Important macros
+
+가이드는 Q_OBJECT 가 가장 중요한 매크로라고 말한다. Signal-Slot 연결과 문법은 일반적인 C++ 컴파일러로 해석되지 않는다. moc 은 QT 문법을 정규 C++ 문법으로 번역한다. 이는 Q_OBJECT 매크로를 헤더에 지정함으로써 이러한 문법을 지원하게된다.
+
+*mywidget.h*
+```
+class MyWidget : public QWidget
+{
+ Q_OBJECT
+ public:
+  MyWidget(QWidget *parent = 0);
+}
+```
+
+marker macros for moc
+- signals
+- public/protected/private slots
+
+mark the different methods that need to be extended.
+
+SIGNAL and SLOT 는 두개의 가장 중요하고 유용한 매크로가 있다. 신호가 발현되었을 때, 메타오브젝트 시스템은 시그널(signal)의 시그니처를 비교하는데 사용된다. 연결을 체크하고 시그니처를 사용하는 슬랏(slot)을 찾는다. 이러한 메서드는 제공된 메서드 시그니처를 메타오브젝트에 저장된 것과 비교하는 문자열로 변환한다.
+
+## 사용자 정의 시그널과 슬롯 생성
+
+사용자 정의 시그널과 슬롯을 생성하는 것을 다룬다. 이는 단순하다. 슬롯은 일반 메서드와 같다.
+
 
 
 ---
