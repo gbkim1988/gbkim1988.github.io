@@ -97,7 +97,8 @@ QObject::connect(manager, SIGNAL(tick(int)), progress, SLOT(setValue(int)));
 
 # 예제(Example)
 
-## 이벤트 응답 (Responding to an event)
+## 이벤트 응답
+:: Responding to an event
 
 버튼을 눌렀을 때 어플리케이션을 닫는 예제
 
@@ -110,6 +111,94 @@ QPushButton's clicked signal ----> QApplication's quit slot
 QApplication 에 접근하는 방법
 QApplication 의 static function 에 접근한다. QApplication * QApplication::instance()
 {:.info}
+
+*window.cpp* 예제
+```
+#include "window.h"
+#include <QApplication>
+#include <QPushButton>
+
+Window::Window(QWidget *parent) :
+ QWidget(parent)
+ {
+  // Set size of the window
+  setFixedSize(100, 50);
+
+  // Create and position the button
+  m_button = new QPushButton("Hello World", this);
+  m_button->setGeometry(10, 10, 80, 30);
+
+  // NEW : Do the connection
+  connect(m_button, SIGNAL (clicked()), QApplication::instance(), SLOT (quit()));
+ }
+```
+
+## 정보 전달 예제
+:: Transmitting information with signals and slots
+
+QSlider 와 QProgressBar 를 연결한다. 단, QSlider 의 변화에 따라 QProgressBar 를 동기하여 동시에 상태가 변하도록 한다.
+
+```
+void QSlider::valueChanged(int value);
+void QProgressBar::setValue(int value);
+
+QSlider's valueChanged signal ----> QProgressBar's setValue slot
+```
+
+*Sample* 예제
+```
+#include <QApplication>
+#include <QProgressBar>
+#include <QSlider>
+
+int main(int argc, char **argv)
+{
+ QApplication app (argc, argv);
+
+ // Create a container window
+ QWidget window;
+ window.setFixedSize(200, 80);
+
+ // Create a progress bar
+ // with the range between 0 and 100, and a starting value of 0
+ QProgressBar *progressBar = new QProgressBar(&window);
+ progressBar->setRange(0, 100);
+ progressBar->setValue(0);
+ progressBar->setGeometry(10, 10, 180, 30);
+
+ // Create a horizontal slider
+ // with the range between 0 and 100, and a starting value of 0
+ QSlider *slider = new QSlider(&window);
+ slider->setOrientation(Qt::Horizontal);
+ slider->setRange(0, 100);
+ slider->setValue(0);
+ slider->setGeometry(10, 40, 180, 30);
+
+ window.show();
+
+ // Connection
+ // This connection set the value of the progress bar
+ // while the slider's value changes
+ QObject::connect(slider, SIGNAL (valueChanged(int)), progressBar, SLOT (setValue(int)));
+
+ return app.exec();
+}
+```
+
+# The Meta object
+
+Qt는 메타 오브젝트 시스템(*meta-object system*, 이하 메타오브젝트)을 제공하는데, 메타오브젝트()란 일반적으로 순수 C++에서는 불가능한 프로그래밍 패러다임을 달성하는 방법을 의미한다.
+
+- **Introspection** : capability of examining a type at run-time.
+- **Asynchronous function calls**
+
+meta-object 능력을 사용하기 위해 QObject 를 서브클래싱해야 한다. meta-object compiler(moc)는 이를 해석하고 번역한다. moc에의해서 생성된 코드는 시그널(signal)와 슬롯(slot) 시그니처, 메서드 마크(QObject)를 서브클래싱한 클래스로부터 메타 정보(meta-information)을 추출하는데 사용된다. 이러한 모든 정보는 아래의 메서드를 사용해서 접근 가능하다.
+
+
+```
+const QMetaObject * QObject::metaObject () const
+```
+
 
 
 ---
