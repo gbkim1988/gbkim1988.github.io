@@ -227,6 +227,95 @@ SIGNAL and SLOT 는 두개의 가장 중요하고 유용한 매크로가 있다.
 ## 사용자 정의 시그널과 슬롯 생성
 
 사용자 정의 시그널과 슬롯을 생성하는 것을 다룬다. 이는 단순하다. 슬롯은 일반 메서드와 같다.
+사용자 정의 시그널과 슬롯을 만들기 위해 아래의 체크리스트를 따른다.
+
+- add Q_OBJECT
+- add signals section, and write signals prototypes
+- add public slots or protected slots or private slots sections, and write slots prototypes
+- implement slots as normal methods
+- establish connections
+
+### 사용자 정의 슬롯 생성
+슬롯을 구현하기 위해 클래스를 시그널(signal)을 송신하고 슬롯(slot)을 가질 수 있도록 만들 필요가 있다. 클래스 선언에 Q_OBJECT 매크로를 설정함으로써 시그널과 슬롯을 구현하도록 만들 수 있다.
+
+### 시그널 생성
+시그널은 시그널 섹션에 선언되어야 한다. 시그널을 굳이 구현할 필요는 없다. emit 키워드를 통해서 시그널을 전송할 수 있다. 파라미터와 함께 시그널(signal)을 송신하기 위해서 이를 시그널 emission 에 전달해야한다.
+
+```
+emit mySignal(firstParameter, secondParameter …);
+```
+
+*window.h*
+```
+#ifndef WINDOW_H
+#define WINDOW_H
+
+#include <QWidget>
+
+class QPushButton;
+class Window : public QWidget
+{
+public:
+ explicit Window(QWidget *parent = 0);
+private slots:
+ void slotButtonClicked(bool checked);
+private:
+ QPushButton *m_button;
+};
+
+#endif // WINDOW_H
+```
+
+*the implementation of this slot is*
+```
+void Window::slotButtonClicked(bool checked)
+{
+ if (checked) {
+ m_button->setText("Checked");
+ } else {
+ m_button->setText("Hello World");
+ }
+}
+```
+
+*window.cpp*
+```
+#include "window.h"
+
+#include <QPushButton>
+
+Window::Window(QWidget *parent) :
+ QWidget(parent)
+{
+ // Set size of the window
+ setFixedSize(100, 50);
+
+ // Create and position the button
+ m_button = new QPushButton("Hello World", this);
+ m_button->setGeometry(10, 10, 80, 30);
+ m_button->setCheckable(true);
+
+connect(m_button, SIGNAL (clicked(bool)), this, SLOT (slotButtonClicked(bool)));
+}
+
+void Window::slotButtonClicked(bool checked)
+{
+ if (checked) {
+ m_button->setText("Checked");
+ } else {
+ m_button->setText("Hello World");
+ }
+}
+```
+
+```
+void QPushButton::clicked(bool checked)
+```
+
+```
+void Window::slotButtonClicked(bool checked);
+```
+
 
 
 
