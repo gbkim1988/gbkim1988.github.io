@@ -194,16 +194,16 @@ Finally We can see the qt configuration which will be applied in compile & build
 
 <!-- Image References at the end of the last part of document -->
 
-[img1]: ./daily/_images/2018-08-29-connect-postgresql/MSYS2-installer-download.png
-[img2]: ./daily/_images/2018-08-29-connect-postgresql/after-building-successfully-pgsql-directory-structure.png
-[img3]: ../_images/2018-08-29-connect-postgresql/pgsql-binary-directory.png
-[img4]: ../_images/2018-08-29-connect-postgresql/add-lib-1.png
-[img5]: ../_images/2018-08-29-connect-postgresql/add-lib-2.png
-[img6]: ../_images/2018-08-29-connect-postgresql/add-lib-3.png
-[img7]: ../_images/2018-08-29-connect-postgresql/add-lib-4.png
-[img8]: ../_images/2018-08-29-connect-postgresql/add-lib-5.png
-[img9]: ../_images/2018-08-29-connect-postgresql/add-lib-6.png
-[img10]: ../_images/2018-08-29-connect-postgresql/copying-libpq_dll-to-debug-folder.png
+[img1]: {{"/assets/images/2018-08-29-connect-postgresql/MSYS2-installer-download.png}}
+[img2]: /assets/images/2018-08-29-connect-postgresql/after-building-successfully-pgsql-directory-structure.png
+[img3]: /assets/images/2018-08-29-connect-postgresql/pgsql-binary-directory.png
+[img4]: /assets/images/2018-08-29-connect-postgresql/add-lib-1.png
+[img5]: /assets/images/2018-08-29-connect-postgresql/add-lib-2.png
+[img6]: /assets/images/2018-08-29-connect-postgresql/add-lib-3.png
+[img7]: /assets/images/2018-08-29-connect-postgresql/add-lib-4.png
+[img8]: /assets/images/2018-08-29-connect-postgresql/add-lib-5.png
+[img9]: /assets/images/2018-08-29-connect-postgresql/add-lib-6.png
+[img10]: /assets/images/2018-08-29-connect-postgresql/copying-libpq_dll-to-debug-folder.png
 
 ---
 
