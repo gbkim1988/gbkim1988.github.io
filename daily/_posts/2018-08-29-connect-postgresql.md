@@ -26,6 +26,15 @@ C++ 이 빌드나 여러면에서 복잡하고 짜증날 요소가 많다. 하�
 
 윈도우 환경에서는 DLL 을 사용해야 하는데 Qt Creator 에서 DLL 등록을 어떻게 하는지 궁금하다.
 
+**사실 등록이라는 표현보다는 경로를 잡아주거나 실행 위치에 DLL 을 복사한다거나의 행위라고 말하는것이 좋을 듯하다.**
+
+아래의 경로를 보면 libpq-example-1.exe 파일을 실행시키기 위해 Qt 관련 dll 및 참조하는 libpq.dll 파일을 복사하였다. 분명 이러한 복사를 자동으로 수행하도록 Qt Project 파일에서 정의가 가능할 것으로 생각 되지만 아직은 현재의 수준에 그쳐 있다.
+
+![Alt][img10]
+
+위의 조치를 취한 뒤에 실행한 결과 정상적으로 동작하는 것을 확인할 수 있었다.
+![Alt][img11]
+
 ## 삽질
 
 libpq 를 Qt 에서 사용하기 위해 삽질 중
@@ -185,8 +194,8 @@ Finally We can see the qt configuration which will be applied in compile & build
 
 <!-- Image References at the end of the last part of document -->
 
-[img1]: ../_images/2018-08-29-connect-postgresql/MSYS2-installer-download.png
-[img2]: ../_images/2018-08-29-connect-postgresql/after-building-successfully-pgsql-directory-structure.png
+[img1]: ./daily/_images/2018-08-29-connect-postgresql/MSYS2-installer-download.png
+[img2]: ./daily/_images/2018-08-29-connect-postgresql/after-building-successfully-pgsql-directory-structure.png
 [img3]: ../_images/2018-08-29-connect-postgresql/pgsql-binary-directory.png
 [img4]: ../_images/2018-08-29-connect-postgresql/add-lib-1.png
 [img5]: ../_images/2018-08-29-connect-postgresql/add-lib-2.png
@@ -194,7 +203,7 @@ Finally We can see the qt configuration which will be applied in compile & build
 [img7]: ../_images/2018-08-29-connect-postgresql/add-lib-4.png
 [img8]: ../_images/2018-08-29-connect-postgresql/add-lib-5.png
 [img9]: ../_images/2018-08-29-connect-postgresql/add-lib-6.png
-
+[img10]: ../_images/2018-08-29-connect-postgresql/copying-libpq_dll-to-debug-folder.png
 
 ---
 
