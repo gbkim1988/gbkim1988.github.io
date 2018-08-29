@@ -194,7 +194,7 @@ Finally We can see the qt configuration which will be applied in compile & build
 
 <!-- Image References at the end of the last part of document -->
 
-[img1]: {{"/assets/images/2018-08-29-connect-postgresql/MSYS2-installer-download.png}}
+[img1]: /assets/images/2018-08-29-connect-postgresql/MSYS2-installer-download.png
 [img2]: /assets/images/2018-08-29-connect-postgresql/after-building-successfully-pgsql-directory-structure.png
 [img3]: /assets/images/2018-08-29-connect-postgresql/pgsql-binary-directory.png
 [img4]: /assets/images/2018-08-29-connect-postgresql/add-lib-1.png
