@@ -12,6 +12,9 @@ C++ 이 빌드나 여러면에서 복잡하고 짜증날 요소가 많다. 하�
 **참조 링크**
 - [libpq를 이용한 C프로그래밍](http://yeobi27.tistory.com/entry/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-libpq%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-C%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-DB%EC%97%B0%EB%8F%99)
 
+**읽기 전에**
+- libpq
+
 # Qt 환경
 
 ## 헤더 등록
@@ -33,7 +36,6 @@ C++ 이 빌드나 여러면에서 복잡하고 짜증날 요소가 많다. 하�
 ![Alt][img10]
 
 위의 조치를 취한 뒤에 실행한 결과 정상적으로 동작하는 것을 확인할 수 있었다.
-![Alt][img11]
 
 ## 삽질
 
@@ -57,7 +59,30 @@ Qt 에서 제공하는 3rd Party 추가 가이드를 따라해 보면서 3rd 파
 libpqxx 라는 것이 있다. 이를 빌드하고 3rd Party로 넣어 보자. 그리고 모든 환경을 Mingw-w64-x86_64-gcc 로 통일한다. Mingw 를 통해 가능함을 보이고 MSVC 로 넘어간다.
 
 - [libpqxx](http://pqxx.org/development/libpqxx/)
+- [Build libpqxx on msys2 mingw-64bit](https://hectorhon.blogspot.com/2018/05/building-libpqxx-on-msys2-mingw-64-bit.html)
 
+> "Build libpqxx on msys2 mingw-64bit" 내용은 상당히 중요하다. Makefile 에서 수정이 필요한 내용을 언급해 준다.
+
+### Qt in mingw-w64
+
+**참조 링크**
+- [Qt Wiki - MinGW 64bit, 중요](https://wiki.qt.io/MinGW-64-bit)
+
+Qt 를 MSYS2 의 Mingw64 환경에서 toolchain 을 빌드 (혹은 pre-compiled toochain 을 설치, 현재 진행하고 있는 방법임)하고 이 toolchain 을 통해서 개발하여, 빌드 환경을 통합하고 안정적인 Gui 개발을 한다.
+
+MSYS2 를 적절히 설치하고 업데이트 하였다면 아래의 명령을 입력하여 설치한다.
+
+```
+pacman -S mingw-w64-i686-qt-creator mingw-w64-x86_64-qt-creator
+```
+
+참고로 설치에 엄청난 시간이 소요된다.
+
+![Alt][img11]
+
+### MSVC 에서는 빌드할 수 없는가?
+
+빌드가 제일 짜증났어요 ㅡㅡ;
 
 ### Qt in Mingw-w64-x86_64-gcc
 
@@ -204,6 +229,7 @@ Finally We can see the qt configuration which will be applied in compile & build
 [img8]: /assets/images/2018-08-29-connect-postgresql/add-lib-5.png
 [img9]: /assets/images/2018-08-29-connect-postgresql/add-lib-6.png
 [img10]: /assets/images/2018-08-29-connect-postgresql/copying-libpq_dll-to-debug-folder.png
+[img11]: /assets/images/2018-08-29-connect-postgresql/MinGw-w64-Msys2-Qt5_11_1.png
 
 ---
 
