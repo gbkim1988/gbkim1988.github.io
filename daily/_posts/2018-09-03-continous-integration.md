@@ -94,7 +94,7 @@ docker composer 가 필요한 이유는 단순히 container 를 설치하는 것
  - Decentralized design
    - you can build an entire swarm from a single disk image
  - Declarative service model
-   - 
+   -
 
 
 ## gitlab container 설치
