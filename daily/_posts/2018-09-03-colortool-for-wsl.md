@@ -27,7 +27,7 @@ colortool.exe -b solarized_dark
 
 ![Alt][img1]
 
-[img1]: /assets/images/2018-09-03-colortool-for-wsl\colortool-change-color-template.png
+[img1]: /assets/images/2018-09-03-colortool-for-wsl/colortool-change-color-template.png
 
 ---
 
