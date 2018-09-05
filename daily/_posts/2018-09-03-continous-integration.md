@@ -94,7 +94,72 @@ docker composer 가 필요한 이유는 단순히 container 를 설치하는 것
  - Decentralized design
    - you can build an entire swarm from a single disk image
  - Declarative service model
-   -
+   - let you define the desired state of the various services in your application stack. For example, you might describe an application comprised of a web front end service with message queueing services and a database backend.
+ - Scaling
+   - declare the number of tasks you want to run. "Scale up or down"
+ - Desired state reconciliation
+   - swarm manager node constantly monitors the cluster state and reconciles any differences between the actual state and your expressed desired state.
+   - For example, if you set up a service to run 10 replicas of a container, and a worker machine hosting two of those replicas crashes, the manager creates two new replicas to replace the replicas that crashed. The swarm manager assigns the new replicas to workers that are running and available.
+ - Multi-host networking
+   - specify an overlay network for your services
+   - manager automatically assigns addresses to the containers on the overlay network when it initializes or updates the application.
+ - Service discovery
+   - manager nodes assign each service in the swarm a unique DNS name and load balances running containers.
+ - Load balancing
+   - You can expose the ports for services to an external load balancer
+ - Secure by default
+   - Each node in the swarm enforces TLS mutual authentication and encryption to secure communications between itself and all other nodes
+
+#### Create a Swarm
+
+- [Create Swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
+- [HA of docker Swarm](http://www.sauru.so/blog/high-availability-of-docker-swarm/)
+
+Swarm 을 생성하기 위해 아래와 같이 명령을 전달한다.
+
+- --advertise-addr flag 는 manager node 를 192.168.99.100 아이피를 통해서 publish 한다. 다른 노드들은 반드시 이 아이피를 통해서 접근할 수 있어야 한다.
+
+- swarm 을 생성하게 되면 `새로운 노드가 swarm 에 가입할 수 있는 명령어를 제공한다.` 이러한 노드들은 --token 플래그에 지정된 옵션에 따라 manager 인지 worker 인지 정의된다.
+
+```
+docker swarm init --advertise-addr 192.168.99.100
+
+--- output ---
+
+docker swarm join \
+--token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
+192.168.99.100:2377
+```
+
+
+```
+docker swarm join-token worker
+
+--- output ---
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-5zfq1ofjhl-07silivne3rwbadtx0967ax36 192.168.x.xxx:2377
+```
+
+
+##### Docker Swarm 고가용성
+
+- [HA of docker Swarm](http://www.sauru.so/blog/high-availability-of-docker-swarm/)
+
+1. 클러스터를 이루는 요소 중 일부에 장애가 발생한 경우, 현재 가동중에 있는 서비스/업무에 영향을 주지 않아야 함
+  1. 서비스의 가용성
+  2. Manager 의 scheduling 기능에 의해 보장
+     - Scheduler 는 Swarm에게 Service 가 할당 되었을 때, 다시 Task 로 나누고 이에 Slot 개념을 적용하여 빈 Slot 이 없도록 유지관리하는 기능을 가진다.
+2. 일부 구성요소가 가용하지 않음에도 불구하고, 그 클러스터가 여전히 제어 가능한 상태에 있어야  한다는 것
+  2. 제어의 가용성
+    - 복수의 Manager Node 로 구성된 Manager Pool 을 구성하영 manager 중 일부가 죽더라도 기능이 정샂거으로 동작할 수 있도록 현황정보를 공유를 포함한 클러스터 기능을 제공하고 있다.
+
+HA 클러스터의 기본원리
+---
+* 클러스터의 종류
+ - 병렬처리 클러스터 (부하분산 클러스터)
+ - 가용성 클러스터 (장애상황을 유연하게 대처, HA(High Availability) 클러스터)
+
 
 
 ## gitlab container 설치
