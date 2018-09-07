@@ -140,7 +140,24 @@ To add a worker to this swarm, run the following command:
 
     docker swarm join --token SWMTKN-1-5zfq1ofjhl-07silivne3rwbadtx0967ax36 192.168.x.xxx:2377
 ```
+##### Docker Machine
 
+Docker Machine 이 아직 무엇인지는 자세히 알지는 못하지만 설치하고 테스트 해본다.
+Docker Node 를 Machine 을 통해 provision(공급)이 가능하다고 한다.
+
+- [provision docker node with docker machine](http://www.sauru.so/blog/provision-docker-node-with-docker-machine/)
+- [install machine directly](https://docs.docker.com/machine/install-machine/#install-machine-directly)
+
+`install-docker-machine.sh`
+```
+base=https://github.com/docker/machine/releases/download/v0.14.0 &&
+  curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+  sudo install /tmp/docker-machine /usr/local/bin/docker-machine
+```
+
+>이와는 달리 Docker Machine은, Docker Engine을 사용자 앞의 기계가 아닌 클라우드 컴퓨팅 VM을 비롯한 원격지의 서버에 설치할 수 있도록 돕는다.
+
+> 원격지 서버에 들어가서 Local에 설치하듯 설치하는 것이 아니라, 원격 조정으로 설치할 수 있도록 해준다. 그것 뿐만 아니라! 명령 하나로 아직 존재하지도 않는 기계를 새로 만들어서 Engine까지 한 방에 설치해주는 멋진 도구다!
 
 ##### Docker Swarm 고가용성
 
